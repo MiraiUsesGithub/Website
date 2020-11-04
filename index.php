@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title> </title>
+    <title> Anonymous Chat</title>
+    <link rel="stylesheet" href="chat/style.css"/>
 </head>
 <body>
+<h1> Anonymous Chat </h1>
 <meta http-equiv="refresh" content="10" >
 <form action="chat/signup.inc.php" method="post">
     <input type="text" name='message' placeholder="Insert Message">
@@ -12,8 +14,8 @@
 <?php
     $dbServername = "localhost";
     $dbUsername = "mirai";
-    $dbPassword = "gamerdude617";
-    $dbName = " ";
+    $dbPassword = "";
+    $dbName = "chat";
     $conn = mysqli_connect($dbServername, $dbUsername, $dbPassword, $dbName);
 
     $sql = "SELECT * FROM talk ORDER by id DESC;";
@@ -24,19 +26,25 @@
             $sample = $row['dt'];
             echo substr($sample, -8);
             echo ' ';
+            echo $row['id'];
+            echo ' ';
             echo $row['words']. "<br>";
         }
     }
-    $sqlthree = "SELECT MAX(ID) FROM talk";
-    $max = mysqli_query($connm,$sqlthree);
-    echo $max;
-    number_format($max);
-
-    $diff = $max - 50;
-    for($deletevalue=0;$deletevalue<$diff; $deletevalue++){
-        $sqltwo = "DELETE FROM `talk` WHERE `id` = $deletevalue;";
-        mysqli_query($conn, $sqltwo);
-
+    $sqltwo = "SELECT MAX(id) FROM talk;";
+    $resulttwo = mysqli_query($conn, $sqltwo);
+    $resultChecktwo = mysqli_num_rows($resulttwo);
+    if ($resultChecktwo > 0){
+        while ($rowtwo = mysqli_fetch_assoc($resulttwo)){
+            $maxnumber = (int)$rowtwo['MAX(id)'];
+        }
+    }
+    $deletionnumber = $maxnumber - 200;
+    if($maxnumber > 100){
+        for($deletevalue=0;$deletevalue<$deletionnumber; $deletevalue++){
+            $sqlfour = "DELETE FROM talk WHERE id = $deletevalue;";
+            mysqli_query($conn, $sqlfour);
+        }
     }
 ?>
 
