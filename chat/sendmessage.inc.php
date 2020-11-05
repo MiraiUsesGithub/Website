@@ -8,12 +8,14 @@
 
     $message = $_POST['message'];
     $user = $_COOKIE['user'];
-
-    if(strlen($user) < 1){
+    $pfp = $_COOKIE['pfp'];
+    
+    if (strlen($user) < 1){
         $user = 'Anonymous';
     }
+
     if($message != ''){
-        $sql = "INSERT INTO talk (words, user) VALUES ('$message', '$user');";
+        $sql = "INSERT INTO talk (words, user, pfp) VALUES ('$message', '$user', '$pfp');";
         mysqli_query($conn, $sql);
         header("Location: ../index.php?message=sent");
     }
