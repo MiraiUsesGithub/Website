@@ -9,45 +9,31 @@
 <html>
     <head>
         <title> Anonymous Chat</title>
-        
+        //<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="style.css"/>
-        <link rel="icon" type="image/png" href="ducksong.png" />
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
-        <script>
-            $(document).ready(function(){
-                setInterval(function(){
-                    $("#Messages").load("load-messages.php");
-                    refresh();
-                }, 1000);
-            });
-        </script>
-        
     </head>
 
     <body>
 
         <h1> Anonymous Chat </h1>
-        
-        
-        <form>
-            <input type="text" id='name' placeholder="Select Name (Enter Once)">
-            <button type="submit" name="submitname" onclick="buttonpressone()">Select</button>
-        </form>
+
+        <meta http-equiv="refresh" content="10" >
 
         <script>
-            function buttonpressone(){
-                var name = document.getElementById("name").value;
-                Cookies.set('user', name, {expires:1});
-                }
+            $(document).ready(function(){
+                    $("button").click(function{
+                        $("#Messages").load("load-comments.php", {
+
+                        });
+                    });
+            });
         </script>
-        
-        <form action="chat/sendmessage.inc.php" method="post">
+
+
+        <form action="chat/signup.inc.php" method="post">
             <input type="text" name='message' placeholder="Insert Message">
             <button type="submit" name="submit">Send</button>
         </form>
-
-        <br>
 
         <div id = "Messages"> 
         <?php
@@ -56,18 +42,12 @@
             $resultCheck = mysqli_num_rows($result);
             if ($resultCheck > 0){
                 while ($row = mysqli_fetch_assoc($result)){
-                echo '<div id = "username">';
-                echo $row['user'];
-                echo '</div>';
-                echo ' ';
-                echo '<div id = "date">';
                 echo '[';
                 echo $row['dt'];
                 echo '] ';
-                echo '</div>';
-                echo '<div id = "words">';
-                echo $row['words']."<br>"."<br>";
-                echo '</div>';
+                //echo $row['id'];
+                //echo ' ';
+                echo $row['words']. "<br>";
                 }
             }
             $sqltwo = "SELECT MAX(id) FROM talk;";
@@ -78,8 +58,8 @@
                     $maxnumber = (int)$rowtwo['MAX(id)'];
                 }
             }
-            $deletionnumber = $maxnumber - 20;
-            if($maxnumber > 20){
+            $deletionnumber = $maxnumber - 200;
+            if($maxnumber > 100){
                 for($deletevalue=0;$deletevalue<$deletionnumber; $deletevalue++){
                     $sqlfour = "DELETE FROM talk WHERE id = $deletevalue;";
                     mysqli_query($conn, $sqlfour);
