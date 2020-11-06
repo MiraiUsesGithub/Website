@@ -1,8 +1,17 @@
-h1{
+#website{
+    display: inline-block;
     color: white;
     font-size: 40px;
-    margin-bottom:10px;
+    float: none;
+    margin-bottom: 1px;
+    margin-top: 1px;
 }
+
+#creds{
+    display: inline-block;
+    color: white;
+}
+
 
 body{
     background-image: url('mario.png');
@@ -21,7 +30,7 @@ body{
 
 #username{
     font-size: 12px;
-    font-weight: 900; 
+    font-weight: 700; 
 }
 
 
@@ -40,8 +49,21 @@ body{
     margin-right: 5px;
 }
 
-#audio,#textunderaudio{
+
+#audioone{
     float: right;
     margin: 1px;
-    margin-top: 5px;
+    margin-top: 50px;
+}
+
+
+#audiotwo{
+    float: right;
+    margin: 1px;
+    margin-top: 50px;
+}
+
+body{
+    float: none;
+    margin: 40px;
 }
